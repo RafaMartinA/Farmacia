@@ -20,11 +20,10 @@ public class Bayer {
          Medicamento m = new Medicamento(nombre, fechaFabric, fechacad, precio, numU, tipoM);
          int i=0;
          boolean a = false;
-         for (int h = 0; h < medicamento.size() ; h++) {
-             if( medicamento.get(h).equals(nombre)) {
-                  medicamento.get(h).setPrecio(precio);
-                  a= true;
-                  i=h;
+         for ( i = 0; i < medicamento.size() ; i++) {
+             if( medicamento.get(i).equals(nombre)) {
+                  medicamento.get(i).setPrecio(precio);
+                  a= true;               
              }             
          }          
          if(a) {
@@ -69,7 +68,7 @@ public class Bayer {
                      posicion = medicamento.get(posicion).getPrincipiosActivo().get(i).getNombre().indexOf(salida);
                      if(posicion!=-1) {
                          salida+=medicamento.get(posicion).getPrincipiosActivo().get(j);
-                         salida+=medicamento.get(j);
+                         salida+=medicamento.get(j).toString();
                      }
                 }
                  

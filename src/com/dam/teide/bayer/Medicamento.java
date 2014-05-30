@@ -61,5 +61,5 @@ public class Medicamento {
      public boolean equals(Object obj) {
         Medicamento c = (Medicamento) obj;
         return nombre.equals(c.nombre);
-    }
+    }     
 }
