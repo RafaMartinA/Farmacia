@@ -11,16 +11,17 @@ import java.util.ArrayList;
  * @author Gon
  */
 public class Medicamento {
-    private String nombre, fechaFabric, fechacad;
+    private String nombre, fechaFabric, fechacad,tipoM;
     private int precio, numU;
     ArrayList<principioActivo> principiosActivo = new ArrayList<>();
 
-    public Medicamento(String nombre, String fechaFabric, String fechacad, int precio, int numU) {
+    public Medicamento(String nombre, String fechaFabric, String fechacad, int precio, int numU, String tipoM) {
         this.nombre = nombre;
         this.fechaFabric = fechaFabric;
         this.fechacad = fechacad;
         this.precio = precio;
         this.numU = numU;
+        this.tipoM=tipoM;
     }
 
     public String getNombre() {

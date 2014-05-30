@@ -16,8 +16,8 @@ public class Bayer {
     ArrayList<Medicamento> medicamento = new ArrayList<>();
     principioActivo p;   
      
-     public boolean altaMedicamento(String nombre, String fechaFabric, String fechacad, int precio, int numU){ 
-         Medicamento m = new Medicamento(nombre, fechaFabric, fechacad, precio, numU);
+     public boolean altaMedicamento(String nombre, String fechaFabric, String fechacad, int precio, int numU, String tipoM){ 
+         Medicamento m = new Medicamento(nombre, fechaFabric, fechacad, precio, numU, tipoM);
          int i=0;
          boolean a = false;
          for (int h = 0; h < medicamento.size() ; h++) {
