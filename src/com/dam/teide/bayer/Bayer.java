@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class Bayer {
     Scanner s = new Scanner(System.in);  
-    ArrayList<Medicamento> medicamento = new ArrayList<>();
+     private ArrayList<Medicamento> medicamento = new ArrayList<>();
     principioActivo p;   
      
      public boolean altaMedicamento(String nombre, String fechaFabric, String fechacad, int precio, int numU, String tipoM){ 
@@ -28,8 +28,8 @@ public class Bayer {
              }             
          }          
          if(a) {
-            for (int j = 0; j < medicamento.get(i).principiosActivo.size(); j++) {
-                m.principiosActivo.add(medicamento.get(i).principiosActivo.get(j));
+            for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {               
+                m.añadirPrincipiosActivo(medicamento.get(i).getPrincipiosActivo().get(j));
             }     
             medicamento.add(m);
             return false;
@@ -38,10 +38,10 @@ public class Bayer {
              do{                 
                  p = new principioActivo();
                  System.out.println("Ponga el nombre del principio activo");
-                 p.nombre= s.nextLine();
+                 p.setNombre(s.nextLine());
                  System.out.println("Ponga los miligramos");
-                 p.mg = s.nextInt();
-                 m.principiosActivo.add(p);
+                 p.setMg(s.nextInt());
+                 m.añadirPrincipiosActivo(p);
                  System.out.println("¿Quiere añadir otro principio activo?. Escriba 'Si' o 'No'");
              }while(s.nextLine().equals("Si"));                          
              medicamento.add(m);
@@ -49,31 +49,32 @@ public class Bayer {
          }         
      }
      
-     public String busquedaMedicamentos (String busqueda, int opcion) {
-         String total="";
-         int posicion=-1;
-         switch(opcion) {
-             case 1: {
-                  for (int i = 0; i < medicamento.size();i++) {
-                      posicion= medicamento.get(i).getNombre().indexOf(busqueda);
-                    if (posicion != -1) {
-                        total+= medicamento.get(i).getNombre()+" ";
-                        for (int j=0;j<medicamento.size();j++) {
-                            total+=medicamento.get(posicion).principiosActivo.get(j);
-                            }
-                        }
+     String busquedaMedicamento(String palabra, boolean opcion){
+         String salida ="";
+         int posicion= -1;
+         if(opcion){
+             for (int i = 0; i < medicamento.size(); i++) {
+                 posicion = medicamento.get(i).getNombre().indexOf(palabra);
+                 if (posicion!=-1) {
+                     salida+= medicamento.get(i); 
+                     for (int j = 0; j < medicamento.get(posicion).getPrincipiosActivo().size(); j++) {
+                    salida+=medicamento.get(posicion).getPrincipiosActivo().get(j);
                     }
-                 }break;
-             case 2 : {
-                 for (int i=0; i<medicamento.get(i).principiosActivo.size();i++) {
-                     posicion=medicamento.get(i).principiosActivo.get(i).nombre.indexOf(busqueda);
-                     if(posicion !=-1) {
-                         total+=medicamento.get(i)+" ";
-                         total+=medicamento.get(i).principiosActivo.get(i)+" ";
-                        }
-                    }
-                }break;         
-        }
-         return "La busqueda que ha realizado se compone de : "+total;
-   }
+                }               
+            }
+         }
+         else{
+             for (int i = 0; i < medicamento.size(); i++) {
+                 for (int j = 0; j < medicamento.get(j).getPrincipiosActivo().size(); j++) {              
+                     posicion = medicamento.get(posicion).getPrincipiosActivo().get(i).getNombre().indexOf(salida);
+                     if(posicion!=-1) {
+                         salida+=medicamento.get(posicion).getPrincipiosActivo().get(j);
+                         salida+=medicamento.get(j);
+                     }
+                }
+                 
+             }             
+         }
+         return salida;         
+     }
 }
