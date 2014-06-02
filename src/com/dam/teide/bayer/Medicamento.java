@@ -55,7 +55,10 @@ public class Medicamento {
         this.principiosActivo.add(p);
         
     }
-    
+       @Override
+      public String toString() {       
+         return nombre +" unidades:"+numU+" precio unitario:"+precio+"€ fecha de fabricacion:"+fechaFabric+" fecha de caducidad:"+fechacad+" "+tipoM+"/n";        
+    }
     
      @Override
      public boolean equals(Object obj) {
