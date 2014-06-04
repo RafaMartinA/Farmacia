@@ -116,6 +116,7 @@ public class Bayer {
          }         
      }
      String ventaMedicamento2(String palabra, boolean opcion ){
+         boolean iguales= false;
          String salida ="";         
          int posicion= -1;
          if(opcion){           
@@ -129,10 +130,18 @@ public class Bayer {
                     }
                 }               
             }
-             for (int i = 0; i < venta.size()-1; i++) {
-                 if(venta.get(i).equals(venta.get(i+1)));
-                 else return salida;                     
-             } return venta.get(0).getNombre();
+             for (int i = 0; i < venta.size(); i++) {
+                 if(venta.get(i).getNombre().equals(palabra)){
+                     iguales = true;
+                 }
+             }    
+             if (iguales){
+                 for (int i = 0; i < venta.size(); i++) {
+                    if(!(venta.get(i).getNombre().equals(palabra))) venta.remove(i);              
+             }return venta.get(0).getNombre();
+             }
+             else return salida;
+             
          }
          else{            
              for (int i = 0; i < venta.size(); i++) {                 
@@ -145,10 +154,15 @@ public class Bayer {
                      }
                 }                 
              }
-             for (int i = 0; i < venta.size()-1; i++) {
-                 if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).equals(venta.get(i+1).getPrincipiosActivo().get(venta.get(i+1).getPosicionPrin())));
-                 else return salida;                      
-             } return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre();
+             for (int i = 0; i < venta.size(); i++) {
+                 if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).getNombre().equals(palabra)) iguales=true;                                     
+             }
+             if (iguales) {                 
+                 for (int i = 0; i < venta.size(); i++) {
+                    if(!(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).getNombre().equals(palabra))) venta.remove(i);
+                 }
+             } else return salida;
+             return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre();
          }         
      }
      double ventaMedicamentoFinal(int numU){

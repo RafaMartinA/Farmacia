@@ -31,7 +31,7 @@ public static void main(String[] args) {
                 case 2:{
                     String nombre;
                     double precio;                   
-                    String factura;
+                    String receta;
                     boolean tipoM;
                     System.out.println("Ponga el nombre del medicamento.");
                     nombre = s.nextLine();
@@ -39,12 +39,12 @@ public static void main(String[] args) {
                     precio=s.nextDouble();
                     s.nextLine();
                     System.out.println("Ponga si necesita receta o no, escriba: 'Si' o 'No'");
-                    factura=s.nextLine();
-                    if(factura.toLowerCase().equals("si")||factura.toLowerCase().equals("sÃ­")||factura.equals("'Si'")) tipoM=true;
+                    receta=s.nextLine();
+                    if(receta.toLowerCase().equals("si")||receta.toLowerCase().equals("sÃ­")||receta.equals("'Si'")) tipoM=true;
                     else tipoM=false;
                     System.out.println("Ponga el numero de unidades");
                     if(!b.altaMedicamento(nombre, precio, s.nextInt(), tipoM)){                                              
-                        System.out.println("Â¿Cuantos productos activos tiene este medicamento?");                        
+                        System.out.println("¿Cuantos productos activos tiene este medicamento?");                        
                         for (int i = s.nextInt(); i >0; i--) {
                             s.nextLine();
                             System.out.println("Ponga el nombre del producto activo");
@@ -79,13 +79,13 @@ public static void main(String[] args) {
                     do{
                         if(salida.equals("")) System.out.println("No se encuentra ningun medicamento");
                         else if(salida.lastIndexOf("\n")>=0){
-                        System.out.println("Se han encontrado estos resultados:\n"+salida+"\nÂ¿Cual de estos medicamentos es el que quiere vender?, ponga el nombre.");                        
+                        System.out.println("Se han encontrado estos resultados:\n"+salida+"\n¿Cual de estos medicamentos es el que quiere vender?, ponga el nombre.");                        
                         salida=b.ventaMedicamento2(s.nextLine(), true);
                     }                 
                     }while(salida.lastIndexOf("\n")>=0);  
                     int numU;
                     double result;
-                    System.out.println("Â¿Cuantas unidades quiere vender de "+salida+"?"); 
+                    System.out.println("¿Cuantas unidades quiere vender de "+salida+"?"); 
                     numU=s.nextInt();
                     s.nextLine();
                     result=b.ventaMedicamentoFinal(numU);
@@ -95,9 +95,9 @@ public static void main(String[] args) {
                     }
                     else if(result==-2){
                         String factura;
-                        System.out.println("Este medicamento necesita receta, Â¿Dispone de ella?, escriba: 'Si' o 'No'");
+                        System.out.println("Este medicamento necesita receta, ¿Dispone de ella?, escriba: 'Si' o 'No'");
                        factura=s.nextLine();
-                    if(factura.toLowerCase().equals("si")||factura.toLowerCase().equals("sÃ­")||factura.equals("'Si'"));
+                    if(factura.toLowerCase().equals("si")||factura.toLowerCase().equals("sí")||factura.equals("'Si'"));
                     else break;
                     }
                     System.out.println("El precio a pagar es de: "+numU*b.restaUnidades(numU,true)+"\nPulse una tecla para continuar");

@@ -94,7 +94,7 @@ public class Medicamento implements Comparable<Medicamento>{
          String tipo;
            if (tipoM) tipo= "Con factura";
            else tipo= "Sin factura";
-         return nombre +" unidades:"+numU+" precio unitario:"+precio+"â‚¬ fecha de fabricacion:"+fechafabric+" fecha de caducidad:"+fechacad2+" "+tipo+"\n";        
+         return nombre +" unidades:"+numU+" precio unitario:"+precio+"€ fecha de fabricacion:"+fechafabric+" fecha de caducidad:"+fechacad2+" "+tipo+"\n";        
     }
     
      @Override
