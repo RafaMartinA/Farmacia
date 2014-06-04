@@ -115,15 +115,15 @@ public class Bayer {
              } return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre() ;
          }         
      }
-     String ventaMedicamento2(String palabra, boolean opcion ){         
+     String ventaMedicamento2(String palabra, boolean opcion ){  
+         boolean iguales=false;            
          String salida ="";         
          int posicion= -1;
          if(opcion){           
              for (int i = 0; i < venta.size(); i++) {                 
                  posicion = venta.get(i).getNombre().indexOf(palabra);
                  if (posicion!=-1) {
-                     salida+= venta.get(i);
-                     venta.get(i).setPosicion(i);                     
+                     salida+= venta.get(i);                                          
                      for (int j = 0; j < venta.get(posicion).getPrincipiosActivo().size(); j++) {
                     salida+=venta.get(posicion).getPrincipiosActivo().get(j);
                     }
@@ -132,30 +132,42 @@ public class Bayer {
                      i--;
                  }             
             }
-             for (int i = 0; i < venta.size()-1; i++) {
-                 if(venta.get(i).equals(venta.get(i+1)));
-                 else return salida;                     
-             } return venta.get(0).getNombre();
+             for (int i = 0; i < venta.size(); i++) {
+                if(venta.get(i).getNombre().equals(palabra)){
+                     iguales = true;
+                 }
+             }    
+            if (iguales){
+                for (int i = 0; i < venta.size(); i++) {
+                    if(!(venta.get(i).getNombre().equals(palabra))) venta.remove(i);              
+            }return venta.get(0).getNombre();
+             }
+             else return salida;
          }
+             
          else{            
              for (int i = 0; i < venta.size(); i++) {                 
                  for (int j = 0; j < venta.get(i).getPrincipiosActivo().size(); j++) {              
                      posicion = venta.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
                      if(posicion!=-1) {
                          salida+=venta.get(i).getPrincipiosActivo().get(j);
-                         salida+=venta.get(i);
-                         venta.get(i).setPosicion(i);                        
+                         salida+=venta.get(i);                                                
                      } else{
                          venta.remove(i);
                          i--;
                      }
                 }                 
              }
-             for (int i = 0; i < venta.size()-1; i++) {
-                 if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).equals(venta.get(i+1).getPrincipiosActivo().get(venta.get(i+1).getPosicionPrin())));
-                 else return salida;                     
-             } return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre() ;
-         }         
+             for (int i = 0; i < venta.size(); i++) {
+                  if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).getNombre().equals(palabra)) iguales=true;                                     
+              }
+              if (iguales) {                 
+                 for (int i = 0; i < venta.size(); i++) {
+                     if(!(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).getNombre().equals(palabra))) venta.remove(i);
+                  }
+              } else return salida;
+              return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre();
+         }
      }
      double ventaMedicamentoFinal(int numU){
          Collections.sort(venta);

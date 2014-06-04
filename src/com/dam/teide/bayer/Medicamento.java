@@ -92,8 +92,8 @@ public class Medicamento implements Comparable<Medicamento>{
         String fechafabric = fmt.format(fechaFabric.getTime());
         String fechacad2 = fmt.format(fechacad.getTime());
          String tipo;
-           if (tipoM) tipo= "Con factura";
-           else tipo= "Sin factura";
+           if (tipoM) tipo= "Con receta";
+           else tipo= "Sin receta";
          return nombre +" unidades:"+numU+" precio unitario:"+precio+"€ fecha de fabricacion:"+fechafabric+" fecha de caducidad:"+fechacad2+" "+tipo+"\n";        
     }
     

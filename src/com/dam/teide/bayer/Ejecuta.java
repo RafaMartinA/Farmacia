@@ -82,7 +82,7 @@ public static void main(String[] args) {
                         else if(salida.lastIndexOf("\n")>=0){
                         System.out.println("Se han encontrado estos resultados:\n"+salida+"\n¿Cual de estos medicamentos es el que quiere vender?, ponga el nombre.");                        
                         salida=b.ventaMedicamento2(s.nextLine(), true);
-                    }                 
+                    }                                 
                     }while(salida.lastIndexOf("\n")>=0);  
                     int numU;
                     double result;
@@ -104,11 +104,12 @@ public static void main(String[] args) {
                     else System.out.println("No se puede vender este medicamento sin receta.");
                         
                     
-                    }   
+                    } else System.out.println("El precio a pagar es de: "+numU*b.restaUnidades(numU,true));     
                     System.out.println("Pulse una tecla para continuar");
                     s.nextLine();
                     break;                    
                }
+               default: break;
          
            }             
         }while(opcion!=7);
