@@ -10,7 +10,7 @@ import java.util.Collections;
 
 /**
  *
- * @author Gon
+ * @author DAM1
  */
 public class Bayer {       
     private ArrayList<Medicamento> medicamento = new ArrayList<>();

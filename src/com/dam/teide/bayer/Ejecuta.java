@@ -6,7 +6,7 @@ package com.dam.teide.bayer;
 import java.util.Scanner;
 /**
  *
- * @author Gon
+ * @author DAM1
  */
 public class Ejecuta {
 public static void main(String[] args) {
@@ -28,18 +28,15 @@ public static void main(String[] args) {
                                        
                     break;
                 }
-                case 2:{
-                    String nombre;
-                    double precio;                   
-                    String receta;
+                case 2:{                   
                     boolean tipoM;
                     System.out.println("Ponga el nombre del medicamento.");
-                    nombre = s.nextLine();
+                    String nombre = s.nextLine();
                     System.out.println("Ponga el precio del "+nombre);
-                    precio=s.nextDouble();
+                    double precio=s.nextDouble();
                     s.nextLine();
                     System.out.println("Ponga si necesita receta o no, escriba: 'Si' o 'No'");
-                    receta=s.nextLine();
+                    String receta=s.nextLine();
                     if(receta.toLowerCase().equals("si")||receta.toLowerCase().equals("sÃ­")||receta.equals("'Si'")) tipoM=true;
                     else tipoM=false;
                     System.out.println("Ponga el numero de unidades");

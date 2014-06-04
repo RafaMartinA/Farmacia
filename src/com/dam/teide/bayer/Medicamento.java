@@ -11,7 +11,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 /**
  *
- * @author Gon
+ * @author DAM1
  */
 public class Medicamento implements Comparable<Medicamento>{
     private String nombre;

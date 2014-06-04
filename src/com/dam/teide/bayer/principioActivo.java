@@ -6,7 +6,7 @@ package com.dam.teide.bayer;
 
 /**
  *
- * @author Gon
+ * @author DAM1
  */
 public class principioActivo {
    private String nombre;
