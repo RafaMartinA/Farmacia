@@ -59,6 +59,8 @@ public static void main(String[] args) {
                     salida=b.busquedaMedicamento(s.nextLine(), true);
                     if(salida.equals("")) System.out.println("No se encuentra ningun medicamento");
                     else System.out.println(salida);
+                    System.out.println("Pulse una tecla para continuar");
+                    s.nextLine();
                     break;
                }
                case 4:{       
@@ -67,6 +69,8 @@ public static void main(String[] args) {
                     salida=b.busquedaMedicamento(s.nextLine(), false);
                     if(salida.equals("")) System.out.println("No se encuentra principio activo");
                     else System.out.println(salida);
+                    System.out.println("Pulse una tecla para continuar");
+                    s.nextLine();
                     break;
                }
              case 5:{       
@@ -91,14 +95,18 @@ public static void main(String[] args) {
                         break;
                     }
                     else if(result==-2){
-                        String factura;
+                        String receta;
                         System.out.println("Este medicamento necesita receta, ¿Dispone de ella?, escriba: 'Si' o 'No'");
-                       factura=s.nextLine();
-                    if(factura.toLowerCase().equals("si")||factura.toLowerCase().equals("sí")||factura.equals("'Si'"));
-                    else break;
+                       receta=s.nextLine();
+                    if(receta.toLowerCase().equals("si")||receta.toLowerCase().equals("sí")||receta.equals("'Si'")){
+                        System.out.println("El precio a pagar es de: "+numU*b.restaUnidades(numU,true));                         
                     }
-                    System.out.println("El precio a pagar es de: "+numU*b.restaUnidades(numU,true)+"\nPulse una tecla para continuar");
-                    s.nextLine();                                      
+                    else System.out.println("No se puede vender este medicamento sin receta.");
+                        
+                    
+                    }   
+                    System.out.println("Pulse una tecla para continuar");
+                    s.nextLine();
                     break;                    
                }
          

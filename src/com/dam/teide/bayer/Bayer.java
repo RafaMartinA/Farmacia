@@ -31,7 +31,7 @@ public class Bayer {
          boolean a = false;
          for ( i = 0; i < medicamento.size() ; i++) {
              if( medicamento.get(i).equals(m)) {
-                  medicamento.get(i).setPrecio(precio);
+                  medicamento.get(i).setPrecio(precio);                  
                   a= true;    
                   posicion=i;
              }             
@@ -115,8 +115,7 @@ public class Bayer {
              } return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre() ;
          }         
      }
-     String ventaMedicamento2(String palabra, boolean opcion ){
-         boolean iguales= false;
+     String ventaMedicamento2(String palabra, boolean opcion ){         
          String salida ="";         
          int posicion= -1;
          if(opcion){           
@@ -128,20 +127,15 @@ public class Bayer {
                      for (int j = 0; j < venta.get(posicion).getPrincipiosActivo().size(); j++) {
                     salida+=venta.get(posicion).getPrincipiosActivo().get(j);
                     }
-                }               
+                }  else{
+                     venta.remove(i);
+                     i--;
+                 }             
             }
-             for (int i = 0; i < venta.size(); i++) {
-                 if(venta.get(i).getNombre().equals(palabra)){
-                     iguales = true;
-                 }
-             }    
-             if (iguales){
-                 for (int i = 0; i < venta.size(); i++) {
-                    if(!(venta.get(i).getNombre().equals(palabra))) venta.remove(i);              
-             }return venta.get(0).getNombre();
-             }
-             else return salida;
-             
+             for (int i = 0; i < venta.size()-1; i++) {
+                 if(venta.get(i).equals(venta.get(i+1)));
+                 else return salida;                     
+             } return venta.get(0).getNombre();
          }
          else{            
              for (int i = 0; i < venta.size(); i++) {                 
@@ -151,31 +145,40 @@ public class Bayer {
                          salida+=venta.get(i).getPrincipiosActivo().get(j);
                          salida+=venta.get(i);
                          venta.get(i).setPosicion(i);                        
+                     } else{
+                         venta.remove(i);
+                         i--;
                      }
                 }                 
              }
-             for (int i = 0; i < venta.size(); i++) {
-                 if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).getNombre().equals(palabra)) iguales=true;                                     
-             }
-             if (iguales) {                 
-                 for (int i = 0; i < venta.size(); i++) {
-                    if(!(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).getNombre().equals(palabra))) venta.remove(i);
-                 }
-             } else return salida;
-             return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre();
+             for (int i = 0; i < venta.size()-1; i++) {
+                 if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).equals(venta.get(i+1).getPrincipiosActivo().get(venta.get(i+1).getPosicionPrin())));
+                 else return salida;                     
+             } return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre() ;
          }         
      }
      double ventaMedicamentoFinal(int numU){
+         Collections.sort(venta);
          int total=0;
+         boolean tipoM = false;
          for (int i = 0; i < venta.size(); i++) {
              total+=venta.get(i).getNumU();
          }
          if (total< numU) return -1;
-         else if(venta.get(0).isTipoM()) return -2;
-         else return 0;            
+         else {
+             for (int i = 0; i < venta.size()||tipoM==true; i++) {                 
+               if(venta.get(i).getNumU()-numU<=0) {
+                   numU=numU-venta.get(i).getNumU();
+                   if(venta.get(i).isTipoM()==true){
+                       tipoM=true;                       
+                   } 
+               }  
+               else if(tipoM)return -2;
+             }  return 2;           
+         }
+                   
      }
-     double restaUnidades(int numU, boolean opcion){
-         Collections.sort(venta);    
+     double restaUnidades(int numU, boolean opcion){             
          if(opcion){             
              for (int i = 0; i < venta.size(); i++) {
                 medicamento.get(venta.get(i).getPosicion()).setNumU(medicamento.get(venta.get(i).getPosicion()).getNumU()-numU);
