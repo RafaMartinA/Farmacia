@@ -5,57 +5,56 @@
 package com.dam.teide.bayer;
 
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  *
  * @author Gon
  */
-public class Bayer {
-    Scanner s = new Scanner(System.in);  
-     private ArrayList<Medicamento> medicamento = new ArrayList<>();
+public class Bayer {       
+    private ArrayList<Medicamento> medicamento = new ArrayList<>();
+    private ArrayList<Medicamento> venta;
+    Medicamento m; 
     principioActivo p;   
      
-     public boolean altaMedicamento(String nombre, String fechaFabric, String fechacad, int precio, int numU, String tipoM){ 
-         Medicamento m = new Medicamento(nombre, fechaFabric, fechacad, precio, numU, tipoM);
+    public void altaPrincipioActivo(String nombre, int mg, int numero){
+         p = new principioActivo(nombre, mg);    
+         m.añadirPrincipiosActivo(p);  
+         numero--;
+         if (numero == 0) medicamento.add(m);            
+          }
+     public boolean altaMedicamento(String nombre, double precio, int numU, boolean tipoM){ 
+         int posicion=0;
+         m = new Medicamento(nombre, precio, numU, tipoM);
          int i=0;
          boolean a = false;
          for ( i = 0; i < medicamento.size() ; i++) {
-             if( medicamento.get(i).equals(nombre)) {
+             if( medicamento.get(i).equals(m)) {
                   medicamento.get(i).setPrecio(precio);
-                  a= true;               
+                  a= true;    
+                  posicion=i;
              }             
          }          
          if(a) {
-            for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {               
-                m.añadirPrincipiosActivo(medicamento.get(i).getPrincipiosActivo().get(j));
+            for (int j = 0; j < medicamento.get(posicion).getPrincipiosActivo().size(); j++) {               
+                m.añadirPrincipiosActivo(medicamento.get(posicion).getPrincipiosActivo().get(j));
             }     
             medicamento.add(m);
-            return false;
+            return true;
         }
-         else  {
-             do{                 
-                 p = new principioActivo();
-                 System.out.println("Ponga el nombre del principio activo");
-                 p.setNombre(s.nextLine());
-                 System.out.println("Ponga los miligramos");
-                 p.setMg(s.nextInt());
-                 m.añadirPrincipiosActivo(p);
-                 System.out.println("¿Quiere añadir otro principio activo?. Escriba 'Si' o 'No'");
-             }while(s.nextLine().equals("Si"));                          
-             medicamento.add(m);
-             return true;
-         }         
+         else return false;
+                 
      }
      
      String busquedaMedicamento(String palabra, boolean opcion){
-         String salida ="";
+         String salida ="";        
          int posicion= -1;
          if(opcion){
              for (int i = 0; i < medicamento.size(); i++) {
                  posicion = medicamento.get(i).getNombre().indexOf(palabra);
                  if (posicion!=-1) {
-                     salida+= medicamento.get(i); 
+                     salida+= medicamento.get(i).toString(); 
                      for (int j = 0; j < medicamento.get(posicion).getPrincipiosActivo().size(); j++) {
                     salida+=medicamento.get(posicion).getPrincipiosActivo().get(j);
                     }
@@ -64,16 +63,136 @@ public class Bayer {
          }
          else{
              for (int i = 0; i < medicamento.size(); i++) {
-                 for (int j = 0; j < medicamento.get(j).getPrincipiosActivo().size(); j++) {              
-                     posicion = medicamento.get(posicion).getPrincipiosActivo().get(i).getNombre().indexOf(salida);
+                 for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {              
+                     posicion = medicamento.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
                      if(posicion!=-1) {
-                         salida+=medicamento.get(posicion).getPrincipiosActivo().get(j);
-                         salida+=medicamento.get(j).toString();
+                         salida+=medicamento.get(i).getPrincipiosActivo().get(j);
+                         salida+=medicamento.get(i);
                      }
                 }
                  
              }             
          }
-         return salida;         
+         return salida;   
      }
+     String ventaMedicamento(String palabra, boolean opcion){
+         String salida ="";
+         venta = new ArrayList<>();
+         int posicion= -1;
+         if(opcion){           
+             for (int i = 0; i < medicamento.size(); i++) {                 
+                 posicion = medicamento.get(i).getNombre().indexOf(palabra);
+                 if (posicion!=-1) {
+                     salida+= medicamento.get(i);
+                     medicamento.get(i).setPosicion(i);
+                     venta.add(medicamento.get(i));
+                     for (int j = 0; j < medicamento.get(posicion).getPrincipiosActivo().size(); j++) {
+                    salida+=medicamento.get(posicion).getPrincipiosActivo().get(j);
+                    }
+                }               
+            }
+             for (int i = 0; i < venta.size()-1; i++) {
+                 if(venta.get(i).equals(venta.get(i+1)));
+                 else return salida;                     
+             } return venta.get(0).getNombre();
+         }
+         else{            
+             for (int i = 0; i < medicamento.size(); i++) {
+                 for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {              
+                     posicion = medicamento.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
+                     if(posicion!=-1) {
+                         salida+=medicamento.get(i).getPrincipiosActivo().get(posicion);
+                         salida+=medicamento.get(i);
+                         medicamento.get(i).setPosicion(i);
+                         medicamento.get(i).setPosicionPrin(posicion);
+                         venta.add(medicamento.get(i));
+                     }
+                }                 
+             }
+             for (int i = 0; i < venta.size()-1; i++) {
+                 if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).equals(venta.get(i+1).getPrincipiosActivo().get(venta.get(i+1).getPosicionPrin())));
+                 else return salida;                     
+             } return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre() ;
+         }         
+     }
+     String ventaMedicamento2(String palabra, boolean opcion ){
+         String salida ="";         
+         int posicion= -1;
+         if(opcion){           
+             for (int i = 0; i < venta.size(); i++) {                 
+                 posicion = venta.get(i).getNombre().indexOf(palabra);
+                 if (posicion!=-1) {
+                     salida+= venta.get(i);
+                     venta.get(i).setPosicion(i);                     
+                     for (int j = 0; j < venta.get(posicion).getPrincipiosActivo().size(); j++) {
+                    salida+=venta.get(posicion).getPrincipiosActivo().get(j);
+                    }
+                }               
+            }
+             for (int i = 0; i < venta.size()-1; i++) {
+                 if(venta.get(i).equals(venta.get(i+1)));
+                 else return salida;                     
+             } return venta.get(0).getNombre();
+         }
+         else{            
+             for (int i = 0; i < venta.size(); i++) {                 
+                 for (int j = 0; j < venta.get(i).getPrincipiosActivo().size(); j++) {              
+                     posicion = venta.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
+                     if(posicion!=-1) {
+                         salida+=venta.get(i).getPrincipiosActivo().get(j);
+                         salida+=venta.get(i);
+                         venta.get(i).setPosicion(i);                        
+                     }
+                }                 
+             }
+             for (int i = 0; i < venta.size()-1; i++) {
+                 if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).equals(venta.get(i+1).getPrincipiosActivo().get(venta.get(i+1).getPosicionPrin())));
+                 else return salida;                      
+             } return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre();
+         }         
+     }
+     double ventaMedicamentoFinal(int numU){
+         int total=0;
+         for (int i = 0; i < venta.size(); i++) {
+             total+=venta.get(i).getNumU();
+         }
+         if (total< numU) return -1;
+         else if(venta.get(0).isTipoM()) return -2;
+         else return 0;            
+     }
+     double restaUnidades(int numU, boolean opcion){
+         Collections.sort(venta);    
+         if(opcion){             
+             for (int i = 0; i < venta.size(); i++) {
+                medicamento.get(venta.get(i).getPosicion()).setNumU(medicamento.get(venta.get(i).getPosicion()).getNumU()-numU);
+                if(medicamento.get(venta.get(i).getPosicion()).getNumU()<0){                 
+                    numU=Math.abs(medicamento.get(venta.get(i).getPosicion()).getNumU());
+                    medicamento.get(venta.get(i).getPosicion()).setNumU(0);     
+                } else return venta.get(0).getPrecio();
+             }
+             return venta.get(0).getPrecio();
+             
+        }else{             
+             double total=0;
+             for (int i = 0; i < venta.size(); i++) {                   
+                medicamento.get(venta.get(i).getPosicion()).setNumU(medicamento.get(venta.get(i).getPosicion()).getNumU()-numU);
+                if(medicamento.get(venta.get(i).getPosicion()).getNumU()<0){                 
+                    numU=Math.abs(medicamento.get(venta.get(i).getPosicion()).getNumU());
+                    medicamento.get(venta.get(i).getPosicion()).setNumU(0);  
+                    total+=venta.get(i).getPrecio()*venta.get(i).getNumU();
+                } else{
+                    total+=venta.get(i).getPrecio()*(venta.get(i).getNumU()-medicamento.get(venta.get(i).getPosicion()).getNumU());
+                    return total;
+                }
+           }             
+           return total;
+         }
+        
+    }
+     void borrarMedicamentos(){
+    for (int i = 0; i < venta.size(); i++) {
+            medicamento.remove(venta.get(i).getPosicion());
+         }
+    
+    }
 }

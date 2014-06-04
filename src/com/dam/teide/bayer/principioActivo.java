@@ -10,7 +10,12 @@ package com.dam.teide.bayer;
  */
 public class principioActivo {
    private String nombre;
-   private int mg;
+   private int mg;   
+
+    public principioActivo(String nombre, int mg) {
+        this.nombre = nombre;
+        this.mg = mg;
+    }     
 
     public int getMg() {
         return mg;
@@ -30,8 +35,13 @@ public class principioActivo {
    
      @Override
     public String toString() {       
-         return "principio activo = "+nombre+" en al cantidad de "+ mg +"mg.";
+         return "principio activo = "+nombre+" en al cantidad de "+ mg +"mg.\n";
         
     }
+          @Override
+     public boolean equals(Object obj) {
+        principioActivo p = (principioActivo) obj;
+        return nombre.equals(p.nombre);
+    } 
     
 }
