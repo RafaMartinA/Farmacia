@@ -4,11 +4,13 @@
  */
 package com.dam.teide.bayer;
 
+import java.io.Serializable;
+
 /**
  *
  * @author DAM1
  */
-public class principioActivo {
+public class principioActivo implements Serializable{
    private String nombre;
    private int mg;   
 

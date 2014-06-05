@@ -4,6 +4,7 @@
  */
 package com.dam.teide.bayer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.Locale;
  *
  * @author DAM1
  */
-public class Medicamento implements Comparable<Medicamento>{
+public class Medicamento implements Comparable<Medicamento>, Serializable {
     private String nombre;
     private boolean tipoM;
     private GregorianCalendar fechacad,fechaFabric; 

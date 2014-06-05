@@ -157,6 +157,10 @@ public static void main(String[] args) {
                     
                     break;         
              }
+             case 7 : {
+                 if (b.cerrarFarmacia()) System.out.println("Se ha guardado correctamente el inventario");
+                 else System.out.println("No se ha podido guardar el inventario");
+             }
                default: break;
          
            }             

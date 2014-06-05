@@ -4,6 +4,8 @@
  */
 package com.dam.teide.bayer;
 
+import com.teide.dam.aortiz.ioutil.OperationsIO;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,14 +14,21 @@ import java.util.Collections;
  *
  * @author DAM1
  */
-public class Bayer {       
+public class Bayer implements Serializable{       
     private ArrayList<Medicamento> medicamento;
     private ArrayList<Medicamento> venta;
     Medicamento m; 
-    principioActivo p;   
+    principioActivo p;  
+    OperationsIO util;
     public String abrirFarmacia(){        
+        util = new OperationsIO("datos1");
         String salida="";
-        medicamento=new ArrayList<>();
+        try {
+            medicamento= (ArrayList<Medicamento>) util.read();
+        }
+        catch (Exception e) {
+            medicamento = new ArrayList<>();
+        }
         for (int i = 0; i < medicamento.size(); i++) {
             m= new Medicamento("prueba", 1, 1,true);            
             if(medicamento.get(i).getFechacad().before(m.getFechaFabric())||medicamento.get(i).getFechacad().equals(m.getFechaFabric())){
@@ -243,4 +252,13 @@ public class Bayer {
          }
     
     }
+     public boolean cerrarFarmacia () {
+         try {
+            util.write(medicamento);
+            return true;
+        }
+         catch (Exception e) {
+            return false;
+        }
+     }
 }
