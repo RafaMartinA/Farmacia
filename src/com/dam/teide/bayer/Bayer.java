@@ -20,8 +20,8 @@ public class Bayer {
     public String abrirFarmacia(){        
         String salida="";
         medicamento=new ArrayList<>();
-        for (int i = 0; i < medicamento.size(); i++) {
-            m= new Medicamento("prueba", 1, 1,true);            
+        m= new Medicamento("prueba", 1, 1,true);  
+        for (int i = 0; i < medicamento.size(); i++) {                      
             if(medicamento.get(i).getFechacad().before(m.getFechaFabric())||medicamento.get(i).getFechacad().equals(m.getFechaFabric())){
                 salida+=medicamento.remove(i);
                 i--;                
@@ -67,8 +67,8 @@ public class Bayer {
                  posicion = medicamento.get(i).getNombre().indexOf(palabra);
                  if (posicion!=-1) {
                      salida+= medicamento.get(i).toString(); 
-                     for (int j = 0; j < medicamento.get(posicion).getPrincipiosActivo().size(); j++) {
-                    salida+=medicamento.get(posicion).getPrincipiosActivo().get(j);
+                     for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {
+                    salida+=medicamento.get(i).getPrincipiosActivo().get(j);
                     }
                 }               
             }
@@ -98,8 +98,8 @@ public class Bayer {
                      salida+= medicamento.get(i);
                      medicamento.get(i).setPosicion(i);
                      venta.add(medicamento.get(i));
-                     for (int j = 0; j < medicamento.get(posicion).getPrincipiosActivo().size(); j++) {
-                    salida+=medicamento.get(posicion).getPrincipiosActivo().get(j);
+                     for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {
+                    salida+=medicamento.get(i).getPrincipiosActivo().get(j);
                     }
                 }               
             }
@@ -180,7 +180,7 @@ public class Bayer {
                      if(!(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).getNombre().equals(palabra))) venta.remove(i);
                   }
               } else return salida;
-              return venta.get(0).getPrincipiosActivo().get(venta.get(0).getPosicionPrin()).getNombre();
+              return palabra;
          }
      }
      double ventaMedicamentoFinal(int numU){
@@ -193,7 +193,7 @@ public class Bayer {
          if (total< numU) return -1;
          else {
              for (int i = 0; i < venta.size()&&tipoM==false&&numU>0; i++) {                 
-               if(venta.get(i).getNumU()-numU>=0) {
+               if(numU-venta.get(i).getNumU()>=0) {
                    numU=venta.get(i).getNumU()-numU;
                    if(venta.get(i).isTipoM()==true){
                        tipoM=true;                       
@@ -225,7 +225,7 @@ public class Bayer {
                 if(medicamento.get(venta.get(i).getPosicion()).getNumU()<0){                 
                     numU=Math.abs(medicamento.get(venta.get(i).getPosicion()).getNumU());
                     medicamento.get(venta.get(i).getPosicion()).setNumU(0);  
-                    total+=venta.get(i).getPrecio()*venta.get(i).getNumU();
+                    total+=venta.get(i).getPrecio()*cantidad;
                 } else{
                     total+=venta.get(i).getPrecio()*(cantidad-venta.get(i).getNumU());
                     return total;
