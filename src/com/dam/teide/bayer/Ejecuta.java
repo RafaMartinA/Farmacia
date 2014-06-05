@@ -150,7 +150,7 @@ public static void main(String[] args) {
                         else System.out.println("No se puede comprar este medicamento sin receta.");
 
 
-                        } else System.out.println("El precio a pagar es de: "+numU*b.restaUnidades(numU,false)); 
+                        } else System.out.println("El precio a pagar es de: "+b.restaUnidades(numU,false)); 
                      } else System.out.println("No se encuentra ningun medicamento");
                      System.out.println("Pulse una tecla para continuar");
                      s.nextLine();
