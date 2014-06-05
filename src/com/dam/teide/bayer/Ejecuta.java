@@ -21,7 +21,8 @@ public static void main(String[] args) {
             System.out.println("4. Buscar principio activo");     
             System.out.println("5. Vender medicamento");
             System.out.println("6. Vender medicamento por principio activo");
-            System.out.println("7. Cerrar farmacia");           
+            System.out.println("7. Borrar un medicamento");
+            System.out.println("8. Cerrar farmacia");           
             opcion = s.nextInt();
             s.nextLine();
             switch(opcion){
@@ -33,6 +34,8 @@ public static void main(String[] args) {
                           farmacia = true;                          
                       }
                       else System.out.println("La farmacia ya esta abierta");
+                     System.out.println("Pulse enter para continuar");
+                     s.nextLine();
 
                     break;
                 }
@@ -114,7 +117,7 @@ public static void main(String[] args) {
 
                         } else System.out.println("El precio a pagar es de: "+numU*b.restaUnidades(numU,true)); 
                     } else System.out.println("No se encuentra ningun medicamento");
-                    System.out.println("Pulse una tecla para continuar");
+                    System.out.println("Pulse enter para continuar");
                     s.nextLine();
                     
                     break;                    
@@ -125,7 +128,7 @@ public static void main(String[] args) {
                     salida=b.ventaMedicamento(s.nextLine(), false);
                     do{                        
                         if(salida.lastIndexOf("\n")>=0){
-                        System.out.println("Se han encontrado estos resultados:\n"+salida+"\n¿Cual de estos medicamentos es el que quiere vender?, ponga el nombre.");                        
+                        System.out.println("Se han encontrado estos resultados:\n"+salida+"\n¿Cual de estos principios activos es el que quiere vender?, ponga el nombre.");                        
                         salida=b.ventaMedicamento2(s.nextLine(), false);
                     }                                 
                     }while(salida.lastIndexOf("\n")>=0);  
@@ -145,26 +148,45 @@ public static void main(String[] args) {
                             System.out.println("Este medicamento necesita receta, ¿Dispone de ella?, escriba: 'Si' o 'No'");
                            receta=s.nextLine();
                         if(receta.toLowerCase().equals("si")||receta.toLowerCase().equals("sí")||receta.equals("'Si'")){
-                            System.out.println("El precio a pagar es de: "+numU*b.restaUnidades(numU,false));                         
+                            System.out.println("El precio a pagar es de: "+b.restaUnidades(numU,false));                         
                         }
-                        else System.out.println("No se puede comprar este medicamento sin receta.");
+                        else System.out.println("No se puede comprar este principio activo sin receta.");
 
 
                         } else System.out.println("El precio a pagar es de: "+b.restaUnidades(numU,false)); 
-                     } else System.out.println("No se encuentra ningun medicamento");
-                     System.out.println("Pulse una tecla para continuar");
+                     } else System.out.println("No se encuentra ningun principio activo");
+                     System.out.println("Pulse enter para continuar");
                      s.nextLine();
                     
                     break;         
              }
-             case 7 : {
+             case 7 : {                 
+             
+                 String salida;
+                    System.out.println("Ponga una palabra similar al medicamento que quiere borrar");
+                    salida=b.ventaMedicamento(s.nextLine(), true);
+                    do{                       
+                        if(salida.lastIndexOf("\n")>=0){
+                        System.out.println("Se han encontrado estos resultados:\n"+salida+"\n¿Cual de estos medicamentos es el que quiere borrar?, ponga el nombre.");                        
+                        salida=b.ventaMedicamento2(s.nextLine(), true);
+                    }                                 
+                    }while(salida.lastIndexOf("\n")>=0);  
+                    if(!salida.equals("")){
+                     b.borrarMedicamentos();
+                        System.out.println("Medicamento borrado correctamente");
+                    }else System.out.println("No se ha encontrado ningun medicamento");
+                    System.out.println("Pulse enter para continuar");
+                    s.nextLine();
+                    break;
+             } 
+             case 8 : {
                  if (b.cerrarFarmacia()) System.out.println("Se ha guardado correctamente el inventario");
                  else System.out.println("No se ha podido guardar el inventario");
              }
                default: break;
          
            }             
-        }while(opcion!=7);
+        }while(opcion!=8);
     }
  }
 

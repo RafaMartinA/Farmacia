@@ -123,10 +123,10 @@ public class Bayer implements Serializable{
                  for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {              
                      posicion = medicamento.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
                      if(posicion!=-1) {
-                         salida+=medicamento.get(i).getPrincipiosActivo().get(posicion);
+                         salida+=medicamento.get(i).getPrincipiosActivo().get(j);
                          salida+=medicamento.get(i);
                          medicamento.get(i).setPosicion(i);
-                         medicamento.get(i).setPosicionPrin(posicion);
+                         medicamento.get(i).setPosicionPrin(j);
                          venta.add(medicamento.get(i));
                      }
                 }                 
@@ -169,17 +169,21 @@ public class Bayer implements Serializable{
          }
              
          else{            
-             for (int i = 0; i < venta.size(); i++) {                 
+             
+             for (int i = 0; i < venta.size(); i++) { 
+                 boolean iguales2 = false;
                  for (int j = 0; j < venta.get(i).getPrincipiosActivo().size(); j++) {              
                      posicion = venta.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
                      if(posicion!=-1) {
                          salida+=venta.get(i).getPrincipiosActivo().get(j);
-                         salida+=venta.get(i);                                                
-                     } else{
-                         venta.remove(i);
-                         i--;
-                     }
-                }                 
+                         salida+=venta.get(i);
+                         iguales2=true;
+                     }          
+                } 
+                 if(!iguales2){
+                     venta.remove(i);
+                     i--;
+                 }
              }
              for (int i = 0; i < venta.size(); i++) {
                   if(venta.get(i).getPrincipiosActivo().get(venta.get(i).getPosicionPrin()).getNombre().equals(palabra)) iguales=true;                                     
