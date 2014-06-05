@@ -54,7 +54,7 @@ public static void main(String[] args) {
                             s.nextLine();
                             System.out.println("Ponga el nombre del producto activo");
                             nombre=s.nextLine();
-                            System.out.println("Ponga los mg que hay de "+nombre);                           
+                            System.out.println("Ponga los mg que hay de "+nombre);                          
                             b.altaPrincipioActivo(nombre, s.nextInt(), i);
                         }
                        
