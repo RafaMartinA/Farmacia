@@ -41,11 +41,14 @@ public class Bayer implements Serializable{
     }
      
     public void altaPrincipioActivo(String nombre, int mg, int numero){
-         p = new principioActivo(nombre, mg);    
-         m.añadirPrincipiosActivo(p);  
-         numero--;
-         if (numero == 0) medicamento.add(m);            
-          }
+        if (numero==0)medicamento.add(m);
+        else{
+            p = new principioActivo(nombre, mg);    
+            m.añadirPrincipiosActivo(p);  
+            numero--;
+            if (numero == 0) medicamento.add(m);             
+        }           
+    }
      public boolean altaMedicamento(String nombre, double precio, int numU, boolean tipoM){ 
          int posicion=-1;
          m = new Medicamento(nombre, precio, numU, tipoM);         

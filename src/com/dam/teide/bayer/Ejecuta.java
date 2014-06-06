@@ -52,13 +52,14 @@ public static void main(String[] args) {
                     else tipoM=false;
                     System.out.println("Ponga el numero de unidades");
                     if(!b.altaMedicamento(nombre, precio, s.nextInt(), tipoM)){                                              
-                        System.out.println("¿Cuantos productos activos tiene este medicamento?");                        
-                        for (int i = s.nextInt(); i >0; i--) {
-                            s.nextLine();
+                        System.out.println("¿Cuantos productos activos tiene este medicamento?");   
+                        int cantidad= s.nextInt();
+                        if (cantidad==0) b.altaPrincipioActivo("", 0, cantidad);
+                        for ( ;cantidad >0; cantidad--) {                            
                             System.out.println("Ponga el nombre del producto activo");
                             nombre=s.nextLine();
                             System.out.println("Ponga los mg que hay de "+nombre);                          
-                            b.altaPrincipioActivo(nombre, s.nextInt(), i);
+                            b.altaPrincipioActivo(nombre, s.nextInt(), cantidad);
                         }
                        
                     }
@@ -70,7 +71,7 @@ public static void main(String[] args) {
                     salida=b.busquedaMedicamento(s.nextLine(), true);
                     if(salida.equals("")) System.out.println("No se encuentra ningun medicamento");
                     else System.out.println(salida);
-                    System.out.println("Pulse una tecla para continuar");
+                    System.out.println("Pulse enter para continuar");
                     s.nextLine();
                     break;
                }
@@ -80,7 +81,7 @@ public static void main(String[] args) {
                     salida=b.busquedaMedicamento(s.nextLine(), false);
                     if(salida.equals("")) System.out.println("No se encuentra principio activo");
                     else System.out.println(salida);
-                    System.out.println("Pulse una tecla para continuar");
+                    System.out.println("Pulse enter para continuar");
                     s.nextLine();
                     break;
                }
@@ -88,6 +89,7 @@ public static void main(String[] args) {
                     String salida;
                     System.out.println("Ponga una palabra similar al medicamento que quiere comprar");
                     salida=b.ventaMedicamento(s.nextLine(), true);
+                            
                     do{                       
                         if(salida.lastIndexOf("\n")>=0){
                         System.out.println("Se han encontrado estos resultados:\n"+salida+"\n¿Cual de estos medicamentos es el que quiere comprar?, ponga el nombre.");                        
