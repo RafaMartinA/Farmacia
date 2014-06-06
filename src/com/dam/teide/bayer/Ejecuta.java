@@ -48,7 +48,7 @@ public static void main(String[] args) {
                     s.nextLine();
                     System.out.println("Ponga si necesita receta o no, escriba: 'Si' o 'No'");
                     String receta=s.nextLine();
-                    if(receta.toLowerCase().equals("si")||receta.toLowerCase().equals("sÃ­")||receta.equals("'Si'")) tipoM=true;
+                    if(receta.toLowerCase().equals("si")||receta.toLowerCase().equals("sí")||receta.equals("'Si'")) tipoM=true;
                     else tipoM=false;
                     System.out.println("Ponga el numero de unidades");
                     if(!b.altaMedicamento(nombre, precio, s.nextInt(), tipoM)){                                              
@@ -103,6 +103,8 @@ public static void main(String[] args) {
                         result=b.ventaMedicamentoFinal(numU);
                         if(result==-1) {
                             System.out.println("No hay suficientes unidades");
+                            System.out.println("Pulse enter para continuar");
+                            s.nextLine();
                             break;
                         }
                         else if(result==-2){
@@ -118,8 +120,7 @@ public static void main(String[] args) {
                         } else System.out.println("El precio a pagar es de: "+numU*b.restaUnidades(numU,true)); 
                     } else System.out.println("No se encuentra ningun medicamento");
                     System.out.println("Pulse enter para continuar");
-                    s.nextLine();
-                    
+                    s.nextLine();                    
                     break;                    
                }
              case 6:{
@@ -141,6 +142,8 @@ public static void main(String[] args) {
                         result=b.ventaMedicamentoFinal(numU);
                         if(result==-1) {
                             System.out.println("No hay suficientes unidades");
+                            System.out.println("Pulse enter para continuar");
+                            s.nextLine();
                             break;
                         }
                         else if(result==-2){
@@ -172,7 +175,7 @@ public static void main(String[] args) {
                     }                                 
                     }while(salida.lastIndexOf("\n")>=0);  
                     if(!salida.equals("")){
-                     b.borrarMedicamentos();
+                     b.borrarMedicamentos(true);
                         System.out.println("Medicamento borrado correctamente");
                     }else System.out.println("No se ha encontrado ningun medicamento");
                     System.out.println("Pulse enter para continuar");

@@ -95,7 +95,7 @@ public class Medicamento implements Comparable<Medicamento>, Serializable {
          String tipo;
            if (tipoM) tipo= "Con receta";
            else tipo= "Sin receta";
-         return nombre +" unidades:"+numU+" precio unitario:"+precio+"€ fecha de fabricacion:"+fechafabric+" fecha de caducidad:"+fechacad2+" "+tipo+"\n";        
+         return nombre +" unidades:"+numU+" precio por unidad:"+precio+"€ fecha de fabricacion:"+fechafabric+" fecha de caducidad:"+fechacad2+" "+tipo+"\n";        
     }
     
      @Override

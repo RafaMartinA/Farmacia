@@ -32,6 +32,7 @@ public class Bayer implements Serializable{
         for (int i = 0; i < medicamento.size(); i++) {
             m= new Medicamento("prueba", 1, 1,true);            
             if(medicamento.get(i).getFechacad().before(m.getFechaFabric())||medicamento.get(i).getFechacad().equals(m.getFechaFabric())){
+                salida+="------------------------------------------------\n";
                 salida+=medicamento.remove(i);
                 i--;                
             }
@@ -46,18 +47,15 @@ public class Bayer implements Serializable{
          if (numero == 0) medicamento.add(m);            
           }
      public boolean altaMedicamento(String nombre, double precio, int numU, boolean tipoM){ 
-         int posicion=0;
-         m = new Medicamento(nombre, precio, numU, tipoM);
-         int i=0;
-         boolean a = false;
-         for ( i = 0; i < medicamento.size() ; i++) {
+         int posicion=-1;
+         m = new Medicamento(nombre, precio, numU, tipoM);         
+         for (int i=0; i < medicamento.size(); i++) {
              if( medicamento.get(i).equals(m)) {
-                  medicamento.get(i).setPrecio(precio);                  
-                  a= true;    
+                  medicamento.get(i).setPrecio(precio);               
                   posicion=i;
              }             
          }          
-         if(a) {
+         if(posicion>=0) {
             for (int j = 0; j < medicamento.get(posicion).getPrincipiosActivo().size(); j++) {               
                 m.añadirPrincipiosActivo(medicamento.get(posicion).getPrincipiosActivo().get(j));
             }     
@@ -75,6 +73,7 @@ public class Bayer implements Serializable{
              for (int i = 0; i < medicamento.size(); i++) {
                  posicion = medicamento.get(i).getNombre().indexOf(palabra);
                  if (posicion!=-1) {
+                     salida+="------------------------------------------------\n";
                      salida+= medicamento.get(i).toString(); 
                      for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {
                     salida+=medicamento.get(i).getPrincipiosActivo().get(j);
@@ -87,6 +86,7 @@ public class Bayer implements Serializable{
                  for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {              
                      posicion = medicamento.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
                      if(posicion!=-1) {
+                         salida+="------------------------------------------------\n";
                          salida+=medicamento.get(i).getPrincipiosActivo().get(j);
                          salida+=medicamento.get(i);
                      }
@@ -104,6 +104,7 @@ public class Bayer implements Serializable{
              for (int i = 0; i < medicamento.size(); i++) {                 
                  posicion = medicamento.get(i).getNombre().indexOf(palabra);
                  if (posicion!=-1) {
+                     salida+="------------------------------------------------\n";
                      salida+= medicamento.get(i);
                      medicamento.get(i).setPosicion(i);
                      venta.add(medicamento.get(i));
@@ -123,6 +124,7 @@ public class Bayer implements Serializable{
                  for (int j = 0; j < medicamento.get(i).getPrincipiosActivo().size(); j++) {              
                      posicion = medicamento.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
                      if(posicion!=-1) {
+                         salida+="------------------------------------------------\n";
                          salida+=medicamento.get(i).getPrincipiosActivo().get(j);
                          salida+=medicamento.get(i);
                          medicamento.get(i).setPosicion(i);
@@ -146,6 +148,7 @@ public class Bayer implements Serializable{
              for (int i = 0; i < venta.size(); i++) {                 
                  posicion = venta.get(i).getNombre().indexOf(palabra);
                  if (posicion!=-1) {
+                     salida+="------------------------------------------------\n";
                      salida+= venta.get(i);                                          
                      for (int j = 0; j < venta.get(posicion).getPrincipiosActivo().size(); j++) {
                     salida+=venta.get(posicion).getPrincipiosActivo().get(j);
@@ -175,6 +178,7 @@ public class Bayer implements Serializable{
                  for (int j = 0; j < venta.get(i).getPrincipiosActivo().size(); j++) {              
                      posicion = venta.get(i).getPrincipiosActivo().get(j).getNombre().indexOf(palabra);
                      if(posicion!=-1) {
+                         salida+="------------------------------------------------\n";
                          salida+=venta.get(i).getPrincipiosActivo().get(j);
                          salida+=venta.get(i);
                          iguales2=true;
@@ -225,8 +229,12 @@ public class Bayer implements Serializable{
                 if(medicamento.get(venta.get(i).getPosicion()).getNumU()<0){                 
                     numU=Math.abs(medicamento.get(venta.get(i).getPosicion()).getNumU());
                     medicamento.get(venta.get(i).getPosicion()).setNumU(0);     
-                } else return venta.get(0).getPrecio();
+                } else{
+                    borrarMedicamentos(false);
+                    return venta.get(0).getPrecio();
+                }
              }
+             borrarMedicamentos(false);
              return venta.get(0).getPrecio();
              
         }else{             
@@ -241,18 +249,30 @@ public class Bayer implements Serializable{
                     total+=venta.get(i).getPrecio()*cantidad;
                 } else{
                     total+=venta.get(i).getPrecio()*(cantidad-venta.get(i).getNumU());
+                    borrarMedicamentos(false);
                     return total;
                 }
-           }             
+           } 
+           borrarMedicamentos(false);
            return total;
          }
         
     }
-     void borrarMedicamentos(){
+     void borrarMedicamentos(boolean opcion){
          int j=0;
-    for (int i = 0; i < venta.size(); i++) {
-            medicamento.remove(venta.get(i).getPosicion()-j);
-            j++;
+         if (opcion) {
+             for (int i = 0; i < venta.size(); i++) {
+             medicamento.remove(venta.get(i).getPosicion()-j);
+             j++;
+             }
+             
+         }else{
+             for (int i = 0; i < venta.size(); i++) {
+                if(medicamento.get(venta.get(i).getPosicion()-j).getNumU()==0){
+                    medicamento.remove(venta.get(i).getPosicion()-j);
+                    j++;
+                }                
+             }             
          }
     
     }
