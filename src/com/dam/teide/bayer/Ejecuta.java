@@ -24,8 +24,9 @@ public static void main(String[] args) {
             System.out.println("7. Borrar un medicamento");
             System.out.println("8. Cerrar farmacia");           
             opcion = s.nextInt();
-            s.nextLine();
-            switch(opcion){
+            s.nextLine();     
+            
+            switch(opcion){                
                   case 1:{ 
                       if (!farmacia) {                          
                           String salida = b.abrirFarmacia();    
@@ -39,7 +40,13 @@ public static void main(String[] args) {
 
                     break;
                 }
-                case 2:{                   
+                case 2:{     
+                    if(!farmacia) {                        
+                        System.out.println("debe abrir primero la farmacia");
+                        System.out.println("Pulse enter para continuar");
+                        s.nextLine();
+                        break;
+                    }
                     boolean tipoM;
                     System.out.println("Ponga el nombre del medicamento.");
                     String nombre = s.nextLine();
@@ -65,7 +72,13 @@ public static void main(String[] args) {
                     }
                     break;
                 }
-                case 3:{       
+                case 3:{
+                    if(!farmacia) {                        
+                        System.out.println("debe abrir primero la farmacia");
+                        System.out.println("Pulse enter para continuar");
+                        s.nextLine();
+                        break;
+                    }
                     String salida;
                     System.out.println("Ponga el nombre del medicamento o busque por palabras clave");
                     salida=b.busquedaMedicamento(s.nextLine(), true);
@@ -75,17 +88,29 @@ public static void main(String[] args) {
                     s.nextLine();
                     break;
                }
-               case 4:{       
-                    String salida;
-                    System.out.println("Ponga el nombre del principio activo o busque por palabras clave");
-                    salida=b.busquedaMedicamento(s.nextLine(), false);
-                    if(salida.equals("")) System.out.println("No se encuentra principio activo");
-                    else System.out.println(salida);
-                    System.out.println("Pulse enter para continuar");
-                    s.nextLine();
-                    break;
+               case 4:{                     
+                   if(!farmacia) {                        
+                     System.out.println("debe abrir primero la farmacia");
+                     System.out.println("Pulse enter para continuar");
+                     s.nextLine();
+                     break;
+                   }
+                   String salida;
+                   System.out.println("Ponga el nombre del principio activo o busque por palabras clave");
+                   salida=b.busquedaMedicamento(s.nextLine(), false);
+                   if(salida.equals("")) System.out.println("No se encuentra principio activo");
+                   else System.out.println(salida);
+                   System.out.println("Pulse enter para continuar");
+                   s.nextLine();
+                   break;
                }
-             case 5:{       
+             case 5:{ 
+                 if(!farmacia) { 
+                     System.out.println("debe abrir primero la farmacia");
+                     System.out.println("Pulse enter para continuar");
+                     s.nextLine();
+                     break;
+                    }
                     String salida;
                     System.out.println("Ponga una palabra similar al medicamento que quiere comprar");
                     salida=b.ventaMedicamento(s.nextLine(), true);
@@ -126,6 +151,12 @@ public static void main(String[] args) {
                     break;                    
                }
              case 6:{
+                 if(!farmacia) { 
+                     System.out.println("debe abrir primero la farmacia");
+                     System.out.println("Pulse enter para continuar");
+                     s.nextLine();
+                     break;
+                    }
                  String salida;
                     System.out.println("Ponga una palabra similar al principio activo que quiere comprar");
                     salida=b.ventaMedicamento(s.nextLine(), false);
@@ -165,13 +196,18 @@ public static void main(String[] args) {
                     
                     break;         
              }
-             case 7 : {                 
-             
+             case 7 : {
+                 if(!farmacia) { 
+                     System.out.println("debe abrir primero la farmacia");
+                     System.out.println("Pulse enter para continuar");
+                     s.nextLine();
+                     break;
+                    }
                  String salida;
-                    System.out.println("Ponga una palabra similar al medicamento que quiere borrar");
-                    salida=b.ventaMedicamento(s.nextLine(), true);
-                    do{                       
-                        if(salida.lastIndexOf("\n")>=0){
+                 System.out.println("Ponga una palabra similar al medicamento que quiere borrar");
+                 salida=b.ventaMedicamento(s.nextLine(), true);
+                 do{
+                     if(salida.lastIndexOf("\n")>=0){
                         System.out.println("Se han encontrado estos resultados:\n"+salida+"\n¿Cual de estos medicamentos es el que quiere borrar?, ponga el nombre.");                        
                         salida=b.ventaMedicamento2(s.nextLine(), true);
                     }                                 
