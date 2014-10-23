@@ -61,6 +61,7 @@ public static void main(String[] args) {
                     if(!b.altaMedicamento(nombre, precio, s.nextInt(), tipoM)){                                              
                         System.out.println("¿Cuantos productos activos tiene este medicamento?");   
                         int cantidad= s.nextInt();
+                        s.nextLine();
                         if (cantidad==0) b.altaPrincipioActivo("", 0, cantidad);
                         for ( ;cantidad >0; cantidad--) {                            
                             System.out.println("Ponga el nombre del producto activo");
@@ -194,7 +195,7 @@ public static void main(String[] args) {
                      System.out.println("Pulse enter para continuar");
                      s.nextLine();
                     
-                    break;         
+                    break;        
              }
              case 7 : {
                  if(!farmacia) { 
